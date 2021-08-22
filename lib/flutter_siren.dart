@@ -76,7 +76,9 @@ There is an updated version available on the App Store. Would you like to upgrad
       child: Text(buttonUpgradeText),
       onPressed: () {
         _openStoreUrl(context);
-        Navigator.of(context).pop();
+        if (!forceUpgrade) {
+          Navigator.of(context).pop();
+        }
       },
     ));
 
