@@ -51,6 +51,27 @@ class Siren {
       newVersion = await GooglePlayStore.getLatestVersion(from: packageName);
     }
 
+    final newList = newVersion.split('.');
+    final currentList = currentVersion.split('.');
+
+    if (newList.length == 3 && currentList.length == 3) {
+      final newMajor = int.parse(newList[0]);
+      final newMinor = int.parse(newList[1]);
+      final newPatch = int.parse(newList[2]);
+      
+      final currentMajor = int.parse(currentList[0]);
+      final currentMinor = int.parse(currentList[1]);
+      final currentPatch = int.parse(currentList[2]);
+
+      if (newMajor > currentMajor
+          || (newMajor == currentMajor && newMinor > currentMinor)
+          || (newMajor == currentMajor && newMinor == currentMinor
+              && newPatch > currentPatch)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     return currentVersion != newVersion;
   }
 
